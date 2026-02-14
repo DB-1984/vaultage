@@ -1,0 +1,36 @@
+{
+  "name": "vaultage",
+  "version": "1.0.0",
+  "description": "File storage API",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DB-1984/vaultage.git"
+  },
+  "author": "David Brandon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DB-1984/vaultage/issues"
+  },
+  "homepage": "https://github.com/DB-1984/vaultage#readme",
+  "dependencies": {
+    "@google-cloud/storage": "^7.19.0",
+    "@prisma/client": "^7.4.0",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.0.2",
+    "prisma": "^7.4.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
