@@ -1,6 +1,7 @@
 {
   "name": "vaultage",
   "version": "1.0.0",
+  "type": "module",
   "description": "File storage API",
   "main": "server.js",
   "scripts": {
