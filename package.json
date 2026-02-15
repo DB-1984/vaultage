@@ -20,14 +20,14 @@
   "homepage": "https://github.com/DB-1984/vaultage#readme",
   "dependencies": {
     "@google-cloud/storage": "^7.19.0",
-    "@prisma/client": "^7.4.0",
+    "@prisma/client": "^5.22.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.0.2",
-    "prisma": "^7.4.0",
+    "prisma": "^5.22.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {

@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
-
-import authRoutes from "./routes/auth.js";
-import folderRoutes from "./routes/folders.js";
+import fileRoutes from "./routes/fileRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import folderRoutes from "./routes/folderRoutes.js";
 import { errorHandler } from "./utils/errorHandler.js";
 
 const app = express();
@@ -15,6 +15,7 @@ app.get("/health", (req, res) => res.json({ ok: true }));
 
 app.use("/auth", authRoutes);
 app.use("/folders", folderRoutes);
+app.use("/files", fileRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
