@@ -1,20 +1,33 @@
 import jwt from "jsonwebtoken";
+import asyncHandler from "../utils/asyncHandler.js";
+import prisma from "../utils/prisma.js";
 
-export const requireAuth = (req, res, next) => {
-  const header = req.headers.authorization || "";
-  const [type, token] = header.split(" ");
+export const protect = asyncHandler(async (req, res, next) => {
+  const token = req.cookies?.jwt;
 
-  if (type !== "Bearer" || !token) {
-    return res
-      .status(401)
-      .json({ message: "Missing or invalid Authorization header." });
+  if (!token) {
+    res.status(401);
+    throw new Error("Not authorised");
   }
 
+  let payload;
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = payload.sub;
-    return next();
+    payload = jwt.verify(token, process.env.JWT_SECRET);
   } catch {
-    return res.status(401).json({ message: "Invalid or expired token." });
+    res.status(401);
+    throw new Error("Not authorised");
   }
-};
+
+  const user = await prisma.user.findUnique({
+    where: { id: payload.sub },
+    select: { id: true, email: true },
+  });
+
+  if (!user) {
+    res.status(401);
+    throw new Error("Not authorised");
+  }
+
+  req.user = user;
+  next();
+});
