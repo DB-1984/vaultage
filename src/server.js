@@ -5,6 +5,7 @@ import fileRoutes from "./routes/fileRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import storageRoutes from "./routes/storageRoutes.js";
 import folderRoutes from "./routes/folderRoutes.js";
+import health from "./routes/health.js";
 import { errorHandler } from "./utils/errorHandler.js";
 import cookieParser from "cookie-parser";
 
@@ -15,7 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get("/health", (req, res) => res.json({ ok: true }));
-
+app.get("/", health);
 app.use("/auth", authRoutes);
 app.use("/folders", folderRoutes);
 app.use("/files", fileRoutes);
