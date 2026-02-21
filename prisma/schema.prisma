@@ -85,6 +85,8 @@ model Folder {
 
   // Self relation for nesting
   // parent folder
+  // represents the Folder row whose id equals this row’s parentId, so you can call "parent: true" in queries
+  // to retrieve the parent folder - useful for things like 'up a level' nav
   parent Folder? @relation("FolderTree", fields: [parentId], references: [id], onDelete: Cascade)
 
   // child folders inside this folder
