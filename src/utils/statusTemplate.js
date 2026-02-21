@@ -1,97 +1,134 @@
 import { indexScripts } from "../utils/indexScripts.js";
-
-export const statusTemplate = `
+export const statusTemplate = /*html*/ `
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vaultage OS | Interactive API</title>
+    <title>Vaultage | API OS</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-      .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-      .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+      body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+      .mono { font-family: 'JetBrains Mono', monospace; }
+      .custom-scrollbar::-webkit-scrollbar { width: 3px; }
+      .custom-scrollbar::-webkit-scrollbar-thumb { background: #000; }
       .tab-content.hidden { display: none; }
+      .border-heavy { border-width: 2px; }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-200 font-mono p-4 flex flex-col items-center justify-center min-h-screen">
-    <div class="max-w-2xl w-full p-6 border border-slate-700 rounded-lg bg-slate-800 shadow-2xl">
+<body class="bg-[#F5F5F5] text-black p-6 md:p-12 flex justify-center items-center min-h-screen">
+    <div class="max-w-4xl w-full">
         
-        <div class="flex items-center justify-between mb-6">
-            <div class="flex items-center space-x-3">
-                <div class="h-3 w-3 bg-green-500 rounded-full animate-pulse"></div>
-                <h1 class="text-lg font-bold tracking-tight text-white text-sm md:text-base">VAULTAGE_API_OS v1.0</h1>
+        <header class="flex flex-col md:flex-row justify-between items-baseline mb-12 border-b-2 border-black pb-4">
+        <h1 class="text-5xl font-black tracking-tighter flex items-center">
+        V<span class="inline-block transform scale-y-[-1] leading-none select-none">V</span>ultage
+    </h1>            <div class="flex space-x-6 mt-4 md:mt-0">
+                <button onclick="switchTab('terminal-tab')" id="btn-terminal" class="text-sm font-bold uppercase tracking-tight border-b-2 border-black pb-1">Console</button>
+                <button onclick="switchTab('docs-tab')" id="btn-docs" class="text-sm font-bold uppercase tracking-tight border-b-2 border-black pb-1 opacity-40 hover:opacity-100 transition-all">Manual</button>
             </div>
-            <span class="text-[10px] bg-slate-700 px-2 py-1 rounded text-slate-300">READ_ONLY_MODE</span>
-        </div>
+        </header>
 
-        <div class="flex space-x-4 mb-4 border-b border-slate-700">
-            <button onclick="switchTab('terminal-tab')" id="btn-terminal" class="pb-2 text-[10px] font-bold uppercase tracking-widest border-b-2 border-green-500 text-white transition-all">Interactive Terminal</button>
-            <button onclick="switchTab('docs-tab')" id="btn-docs" class="pb-2 text-[10px] font-bold uppercase tracking-widest border-b-2 border-transparent text-slate-500 hover:text-slate-300 transition-all">API Documentation</button>
-        </div>
-        
         <div id="terminal-tab" class="tab-content">
-            <div id="terminal" class="bg-black rounded p-4 h-64 overflow-y-auto custom-scrollbar mb-6 text-xs md:text-sm text-green-500 border border-slate-700">
-                <p class="text-slate-500 mb-2">// System initialized. Awaiting command...</p>
-                <pre id="output" class="whitespace-pre-wrap"></pre>
+            <div id="terminal" class="bg-white h-full overflow-y-auto custom-scrollbar mb-16 p-6 shadow-[16px_16px_0px_0px_rgba(0,0,0,1)]">
+                <pre id="output" class="mono text-md leading-relaxed whitespace-pre-wrap text-black/80">// Awaiting System Commands...</pre>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                <button onclick="login()" class="bg-green-900/40 hover:bg-green-800/60 p-2 rounded text-[11px] uppercase border border-green-700 transition font-bold text-green-400">1. System Auth</button>
-                <button onclick="runTest('/folders/content', '2. GET_ROOT')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded text-[11px] uppercase border border-slate-600 transition">View Root</button>
-                <button onclick="runTest('/folders/content?folderId=cmlw75s560001mfjnk36olrvw', '3. GET_NESTED')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded text-[11px] uppercase border border-slate-600 transition text-slate-400 italic">View Folder</button>
-                <button onclick="runTest('/files/cmlw7trh50005qzl39g410bat/download', '4. GET_DL_LINK')" class="bg-blue-900/40 hover:bg-blue-800/60 p-2 rounded text-[11px] uppercase border border-blue-700 transition">Get Download URL</button>
-                <button onclick="logout()" class="bg-red-900/40 hover:bg-red-800/60 p-2 rounded text-[11px] uppercase border border-red-700 transition text-red-400">5. Logout</button>
-            </div>
+            <div class="flex flex-col md:grid md:grid-cols-5 border-heavy border-black bg-black max-w-xs md:max-w-full">
+            <button onclick="login()" class="bg-white hover:bg-black hover:text-white p-4 text-sm font-black uppercase border-b md:border-b-0 md:border-r border-black transition-all text-left md:text-center">
+                01 Auth
+            </button>
+            
+            <button onclick="runTest('/folders/content', 'GET_ROOT')" class="bg-white hover:bg-black hover:text-white p-4 text-sm font-black uppercase border-b md:border-b-0 md:border-r border-black transition-all text-left md:text-center">
+                02 Root
+            </button>
+            
+            <button onclick="runTest('/folders/content?folderId=cmlw75s560001mfjnk36olrvw', 'GET_CHILD')" class="bg-white hover:bg-black hover:text-white p-4 text-sm font-black uppercase border-b md:border-b-0 md:border-r border-black transition-all text-left md:text-center">
+                03 Child
+            </button>
+            
+            <button onclick="runTest('/files/cmlw7trh50005qzl39g410bat/download', 'GET_FILE')" class="bg-white hover:bg-black hover:text-white p-4 text-sm font-black uppercase border-b md:border-b-0 md:border-r border-black transition-all text-left md:text-center">
+                04 Link
+            </button>
+            
+            <button onclick="logout()" class="bg-white hover:bg-red-500 hover:text-white p-4 text-sm font-black uppercase transition-all text-left md:text-center">
+                05 Exit
+            </button>
+        </div>
         </div>
 
-        <div id="docs-tab" class="tab-content hidden h-[450px] overflow-y-auto custom-scrollbar pr-2">
-            <div class="space-y-8">
+        <div id="docs-tab" class="tab-content hidden">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
                 
-                <section>
-                    <h2 class="text-white text-xs font-bold uppercase tracking-tighter mb-2 italic">// System_Concepts</h2>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">
-                        Vaultage is a secure cloud-storage API built with <span class="text-slate-200">Express.js</span> and <span class="text-slate-200">Prisma</span>. It implements a hierarchical file system architecture where every asset is linked to a user-owned folder. Authentication is handled via <span class="text-slate-200">JWT</span> stored in <span class="text-slate-200">HttpOnly cookies</span> to mitigate XSS risks.
-                    </p>
-                </section>
+                <div class="md:col-span-4 space-y-8">
+                    <section>
+                        <h2 class="text-md font-black uppercase tracking-tight mb-4 border-b border-black/10 pb-2">Core_Philosophy</h2>
+                        <p class="text-sm leading-loose opacity-70">
+                            Vaultage is a stateless cloud-storage API designed for high-security asset management. It abstracts complex <strong>S3 storage interactions</strong> into a familiar, hierarchical folder structure.
+                        </p>
+                    </section>
+                    
+                    <section>
+                        <h2 class="text-md font-black uppercase tracking-tight mb-4 border-b border-black/10 pb-2">Tech_Stack</h2>
+                        <ul class="text-xs mono space-y-2 opacity-70">
+                            <li>- Node.js / Express</li>
+                            <li>- Prisma (PostgreSQL)</li>
+                            <li>- Supabase Storage (S3)</li>
+                            <li>- JWT / HttpOnly Cookies</li>
+                        </ul>
+                    </section>
 
-                <hr class="border-slate-700/50">
+                    <section class="bg-black text-white p-4">
+                        <h2 class="text-md font-black uppercase tracking-tight mb-2">Security_Protocol</h2>
+                        <p class="text-xs leading-relaxed opacity-80">
+                            Sessions are verified via <strong>Server-Side JWTs</strong>. Client-side JS cannot access the session token, effectively neutralizing XSS-based token theft.
+                        </p>
+                    </section>
+                </div>
 
-                <section>
-                    <h3 class="text-amber-500 text-[10px] font-bold uppercase mb-2 flex items-center">
-                        <span class="bg-amber-500/10 px-2 py-0.5 rounded mr-2 border border-amber-500/20">POST</span> /auth/login
-                    </h3>
-                    <p class="text-[11px] text-slate-400 mb-2">Validates credentials and initializes the secure session. In this demo, the 'System Auth' button automates this for the test user.</p>
-                    <div class="bg-black/40 rounded p-2 text-[10px] border border-slate-700/50 mb-2">
-                        <code class="text-blue-400">{ "email": "test@example.com", "password": "..." }</code>
-                    </div>
-                </section>
+                <div class="md:col-span-8 space-y-12">
+                    <section>
+                        <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-6">
+                            <h3 class="mono text-sm font-800">POST /auth/login</h3>
+                            <span class="text-[9px] font-800 px-2 py-0.5 border border-black uppercase">Auth Required: No</span>
+                        </div>
+                        <p class="text-xs opacity-60 mb-6">Validates credentials and issues a secure cookie. The system expects a 1:1 match against stored hashed passwords.</p>
+                        <div class="bg-white border border-black p-4 mono text-[10px]">
+                            <span class="text-black/30 block mb-2">// Request Schema</span>
+                            {<br>
+                            &nbsp;&nbsp;"email": "user@example.com",<br>
+                            &nbsp;&nbsp;"password": "strong_password"<br>
+                            }
+                        </div>
+                    </section>
 
-                <section>
-                    <h3 class="text-green-500 text-[10px] font-bold uppercase mb-2 flex items-center">
-                        <span class="bg-green-500/10 px-2 py-0.5 rounded mr-2 border border-green-500/20">GET</span> /folders/content
-                    </h3>
-                    <p class="text-[11px] text-slate-400 mb-2">Fetches the directory tree. If no <code class="text-slate-300">folderId</code> is provided, the root level is returned. Assets include metadata and file IDs.</p>
-                </section>
+                    <section>
+                        <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-6">
+                            <h3 class="mono text-sm font-800">GET /folders/content</h3>
+                            <span class="text-[9px] font-800 px-2 py-0.5 border border-black uppercase">Auth Required: Yes</span>
+                        </div>
+                        <p class="text-xs opacity-60 mb-4">Retrieves the directory listing. If <code class="mono bg-black/5 px-1 font-bold">folderId</code> is null, the API defaults to the user's root directory.</p>
+                        <p class="text-[11px] font-bold opacity-80 underline">Query Parameters:</p>
+                        <ul class="text-[11px] opacity-70 mt-2 space-y-1">
+                            <li><strong class="mono">folderId</strong> (UUID): Targeted sub-directory.</li>
+                        </ul>
+                    </section>
 
-                <section>
-                    <h3 class="text-blue-500 text-[10px] font-bold uppercase mb-2 flex items-center">
-                        <span class="bg-blue-500/10 px-2 py-0.5 rounded mr-2 border border-blue-500/20">GET</span> /files/:id/download
-                    </h3>
-                    <p class="text-[11px] text-slate-400 mb-2">Integrates with <span class="text-slate-200">Supabase Storage</span>. Instead of streaming raw bytes, this endpoint returns a pre-signed URL with a 60-second expiry for secure, performant downloads.</p>
-                </section>
-
-                <div class="p-3 bg-slate-900/80 rounded border border-slate-700 text-[10px] text-slate-500">
-                    <span class="text-slate-300 font-bold block mb-1">SECURITY NOTE:</span>
-                    CORS is restricted to same-origin for this dashboard. File access is protected by Row Level Security (RLS) in the database.
+                    <section>
+                        <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-6">
+                            <h3 class="mono text-sm font-800">GET /files/:id/download</h3>
+                            <span class="text-[9px] font-800 px-2 py-0.5 border border-black uppercase">Auth Required: Yes</span>
+                        </div>
+                        <p class="text-xs opacity-60 mb-4">Leverages S3 Pre-signed URLs. The API communicates with the storage bucket to generate a temporary link (TTL: 60s), ensuring file paths are never exposed publicly.</p>
+                    </section>
                 </div>
             </div>
         </div>
 
-        <div class="mt-6 pt-4 border-t border-slate-700 flex justify-between items-center">
-            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">test@example.com logged_in</p>
-            <button onclick="location.reload()" class="text-[10px] text-slate-400 hover:text-white underline">Clear Terminal</button>
-        </div>
+        <footer class="mt-20 flex justify-between items-center text-xs font-black uppercase tracking-tight">
+            <p>Vaultage Storage System // Build_2026</p>
+            <button onclick="location.reload()" class="hover:text-black underline">Reset_Terminal</button>
+        </footer>
     </div>
 
     <script>
@@ -100,12 +137,13 @@ export const statusTemplate = `
           document.getElementById(tabId).classList.remove('hidden');
           
           const isDocs = tabId === 'docs-tab';
-          document.getElementById('btn-terminal').className = isDocs 
-              ? "pb-2 text-[10px] font-bold uppercase tracking-widest border-b-2 border-transparent text-slate-500 transition-all" 
-              : "pb-2 text-[10px] font-bold uppercase tracking-widest border-b-2 border-green-500 text-white transition-all";
-          document.getElementById('btn-docs').className = isDocs 
-              ? "pb-2 text-[10px] font-bold uppercase tracking-widest border-b-2 border-green-500 text-white transition-all" 
-              : "pb-2 text-[10px] font-bold uppercase tracking-widest border-b-2 border-transparent text-slate-500 transition-all";
+          const tBtn = document.getElementById('btn-terminal');
+          const dBtn = document.getElementById('btn-docs');
+
+          tBtn.style.borderBottomColor = isDocs ? 'transparent' : 'black';
+          tBtn.style.opacity = isDocs ? '0.4' : '1';
+          dBtn.style.borderBottomColor = isDocs ? 'black' : 'transparent';
+          dBtn.style.opacity = isDocs ? '1' : '0.4';
       }
 
       ${indexScripts}
