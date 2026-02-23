@@ -82,15 +82,31 @@ async function runTest(url, label, uuid = null) {
 
 async function login() {
   const output = document.getElementById("output");
+  const explorer = document.getElementById("explorer-view");
   output.innerText += "\\n> AUTHENTICATING...\\n";
+  updateScroll();
+
   try {
     const res = await fetch("/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: "test@example.com", password: "00000000" }),
     });
-    if (res.ok) output.innerText += "AUTH_SUCCESS.\\n";
-    else throw new Error("Rejected");
+
+    if (res.ok) {
+      output.innerText += "AUTH_SUCCESS.\\n";
+      // SHOW THE LOGIN INFO IN THE EXPLORER
+      explorer.classList.remove('hidden');
+      explorer.innerHTML = '<div class="bg-white border-black p-4 mono text-xs">' +
+                           '<span class="text-black block mb-2 uppercase font-normal text-xs">// Auth_Identity_Used</span>' +
+                           ' {<br>' +
+                           '&nbsp;&nbsp;"email": "test@example.com",<br>' +
+                           '&nbsp;&nbsp;"password": "••••••••"<br>' +
+                           ' }' +
+                           '</div>';
+    } else {
+      throw new Error("Rejected");
+    }
   } catch (err) {
     output.innerText += "AUTH_ERROR: " + err.message + "\\n";
   }

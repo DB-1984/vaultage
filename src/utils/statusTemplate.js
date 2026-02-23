@@ -35,7 +35,7 @@ export const statusTemplate = /*html*/ `
                 <pre id="output" class="mono text-xs md:text-sm leading-relaxed whitespace-pre-wrap text-black/80">// Awaiting System Commands...</pre>
             </div>
 
-            <div id="explorer-view" class="md:grid grid-cols-4 gap-4 mb-16 p-6 border-2 border-black bg-white min-h-[140px] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+            <div id="explorer-view" class="md:grid grid-cols-4 gap-4 mb-12 p-6 border-2 border-black bg-white min-h-[140px] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">...
             </div>
         
 
@@ -43,7 +43,7 @@ export const statusTemplate = /*html*/ `
     
             <div class="flex flex-col md:grid md:grid-cols-5 border-heavy border-black bg-black w-full max-w-xs md:max-w-4xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                 
-                <button onclick="login()" class="bg-white hover:bg-black hover:text-white p-4 text-sm font-black uppercase border-b md:border-b-0 md:border-r border-black transition-all text-left md:text-center">01 Auth</button>
+                <button onclick="login()" class="bg-white hover:bg-green-400 hover:text-white p-4 text-sm font-black uppercase border-b md:border-b-0 md:border-r border-black transition-all text-left md:text-center">01 Auth</button>
                 
                 <button onclick="runTest('/folders/content', 'GET_ROOT')" class="bg-white hover:bg-black hover:text-white p-4 text-sm font-black uppercase border-b md:border-b-0 md:border-r border-black transition-all text-left md:text-center">02 Root</button>
                 
@@ -160,8 +160,8 @@ export const statusTemplate = /*html*/ `
                     </section>
                     <section>
                     <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-6">
-                        <h3 class="text-xl font-black tracking-tight uppercase">Declarative_UI_Mapping</h3>
-                        <span class="text-[9px] font-800 px-2 py-0.5 border border-black uppercase bg-black text-white italic">Frontend_Strategy</span>
+                        <h3 class="text-xl font-black tracking-tight uppercase">UI_Mapping</h3>
+                        <span class="text-[9px] font-800 px-2 py-0.5 border border-black uppercase bg-black text-white">Frontend_Strategy</span>
                     </div>
                     <p class="text-xs/7 mb-6">
                         The UI utilizes **Event Delegation**. By mapping database UUIDs to <code class="mono font-bold text-black text-[10px]">data-uuid</code> attributes, a single controller can resolve infinite resource paths without unique logic for every element.
@@ -183,7 +183,7 @@ export const statusTemplate = /*html*/ `
 
         <footer class="mt-20 flex justify-between items-center text-xs font-semibold uppercase tracking-tighter">
             <p>Vaultage Storage System // Build_2026</p>
-            <button onclick="location.reload()" id="reset-button" class="border-2 border-black p-1 hover:bg-red-500 hover:text-white ">Reset_Terminal</button>
+            <button onclick="location.reload()" id="reset-button" class="border-black px-2 py-1 text-white font-light text-xs hover:bg-black/40 hover:text-white bg-red-500 hover:text-white ">Reset_Terminal</button>
         </footer>
     </div>
 
