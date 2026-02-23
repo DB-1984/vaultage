@@ -31,7 +31,7 @@ export const statusTemplate = /*html*/ `
         </header>
 
         <div id="terminal-tab" class="tab-content">
-            <div id="terminal" class="bg-white h-full overflow-y-auto custom-scrollbar mb-16 p-6 shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] border-2 border-black">
+            <div id="terminal" class="bg-white h-full overflow-y-auto custom-scrollbar mb-16 p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-2 border-black">
                 <pre id="output" class="mono text-xs md:text-sm leading-relaxed whitespace-pre-wrap text-black/80">// Awaiting System Commands...</pre>
             </div>
 

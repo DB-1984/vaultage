@@ -39,7 +39,7 @@ const renderVisualizer = (data) => {
     explorer.classList.remove('hidden');
     explorer.innerHTML = '<div class="col-span-full flex flex-col items-center justify-center p-8 border-2 border-black relative">' +
                          '<div class="flex gap-4">' +
-                           '<a href="' + downloadUrl + '" target="_blank" class="bg-white text-black px-6 py-2 tracking-tighter text-sm font-bold hover:underline">' +
+                           '<a href="' + downloadUrl + '" target="_blank" class="bg-black text-white px-6 py-2 tracking-tighter text-sm font-bold hover:underline">' +
                            '📄' + ' DOWNLOAD_FILE</a>'
                          '</div>' +
                          '</div>';
