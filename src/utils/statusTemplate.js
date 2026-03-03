@@ -1,215 +1,180 @@
 import { indexScripts } from "../utils/indexScripts.js";
+
 export const statusTemplate = /*html*/ `
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vaultage | API OS</title>
+    <title>Vaultage | Technical Specification</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-      body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+      body { font-family: 'Public Sans', sans-serif; background-color: #e5e5e1; color: #1a1a1a; }
       .mono { font-family: 'JetBrains Mono', monospace; }
-      .custom-scrollbar::-webkit-scrollbar { width: 3px; }
-      .custom-scrollbar::-webkit-scrollbar-thumb { background: #000; }
       .tab-content.hidden { display: none; }
-      .border-heavy { border-width: 2px; }
+      .paper-texture { background-color: #f4f4f0; background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png"); }
+      .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+      .custom-scrollbar::-webkit-scrollbar-thumb { background: #1a1a1a; }
+      .inverted-v {
+        display: inline-flex;
+        transform: rotate(180deg) translateY(0.6em);
+        margin-left: -0.155em;
+        margin-right: -0.05em;
+      }
+      pre, code { overflow-wrap: break-word; white-space: pre-wrap; }
     </style>
 </head>
-<body class="bg-[#F5F5F5] text-black p-6 md:p-12 flex justify-center items-center min-h-screen">
-    <div class="max-w-4xl w-full">
+<body class="p-2 sm:p-4 md:p-10 min-h-screen flex justify-center items-start">
+    <div class="max-w-6xl w-full paper-texture border-2 border-[#1a1a1a] p-4 py-6 sm:p-8 md:p-12 shadow-2xl relative overflow-x-hidden">
         
-        <header class="flex flex-col md:flex-row justify-between items-baseline mb-12 border-b-2 border-black pb-4">
-            <h1 class="text-5xl font-black tracking-tight flex items-center">
-                V<span class="-ml-2.5 -mr-1 inline-block transform scale-y-[-1] leading-none select-none">V</span>ultage
-            </h1>            
-            <div class="flex space-x-6 mt-4 md:mt-0">
-                <button onclick="switchTab('terminal-tab')" id="btn-terminal" class="text-sm font-bold uppercase tracking-tight border-b-2 border-black pb-1 transition-all">Console</button>
-                <button onclick="switchTab('docs-tab')" id="btn-docs" class="text-sm font-bold uppercase tracking-tight border-b-2 border-transparent pb-1 opacity-40 hover:opacity-100 transition-all">Manual</button>
+        <div class="flex flex-col md:flex-row justify-between items-start border-b-4 border-[#1a1a1a] pb-8 mb-10 gap-4">
+            <div class="flex flex-col">
+                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-[900] tracking-tighter leading-none flex items-center select-none">
+                    V<span class="inverted-v">V</span>ULTAGE
+                </h1>
+                <p class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] sm:tracking-[0.4em] mt-3 text-[#b22222]">High-Integrity Recursive File Management // v1.0.0</p>
             </div>
-        </header>
-
-        <div id="terminal-tab" class="tab-content">
-            <div id="terminal" class="bg-white h-full overflow-y-auto custom-scrollbar mb-16 p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-2 border-black">
-                <pre id="output" class="mono text-xs md:text-sm leading-relaxed whitespace-pre-wrap text-black/80">// Awaiting System Commands...</pre>
-            </div>
-
-            <div id="explorer-view" class="md:grid grid-cols-4 gap-4 mb-12 p-6 border-2 border-black bg-white min-h-[140px] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">...
-            </div>
-        
-
-            <div class="w-full flex justify-center p-4"> 
-    
-            <div class="flex flex-col md:grid md:grid-cols-5 border-heavy border-black bg-black w-full max-w-xs md:max-w-4xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-                
-                <button onclick="login()" class="bg-white hover:bg-green-400 hover:text-white p-4 text-sm font-black uppercase border-b md:border-b-0 md:border-r border-black transition-all text-left md:text-center">01 Auth</button>
-                
-                <button onclick="runTest('/folders/content', 'GET_ROOT')" class="bg-white hover:bg-black hover:text-white p-4 text-sm font-black uppercase border-b md:border-b-0 md:border-r border-black transition-all text-left md:text-center">02 Root</button>
-                
-                <button onclick="runTest('/folders/content?folderId=cmlw75s560001mfjnk36olrvw', 'GET_CHILD')" class="bg-white hover:bg-black hover:text-white p-4 text-sm font-black uppercase border-b md:border-b-0 md:border-r border-black transition-all text-left md:text-center">03 Child</button>
-                
-                <button onclick="runTest('/files/cmlw7trh50005qzl39g410bat/download-url', 'GET_FILE')" class="bg-white hover:bg-black hover:text-white p-4 text-sm font-black uppercase border-b md:border-b-0 md:border-r border-black transition-all text-left md:text-center">04 Link</button>
-                
-                <button onclick="logout()" class="bg-white hover:bg-red-500 hover:text-white p-4 text-sm font-black uppercase transition-all text-left md:text-center">05 Exit</button>
-                
+            <div class="md:text-right mono text-[9px] sm:text-[10px] leading-tight opacity-60">
+                DATE: 03_MAR_2026<br>
+                REF: ARCH_DOC_V1<br>
+                STATUS: ENCRYPTED
             </div>
         </div>
 
+        <nav class="flex flex-wrap gap-1 mb-12">
+            <button onclick="switchTab('terminal-tab')" id="btn-terminal" class="flex-1 sm:flex-none bg-[#1a1a1a] text-white px-4 sm:px-8 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-widest border-2 border-[#1a1a1a]">Console</button>
+            <button onclick="switchTab('docs-tab')" id="btn-docs" class="flex-1 sm:flex-none bg-transparent text-[#1a1a1a] px-4 sm:px-8 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-widest border-2 border-[#1a1a1a] hover:bg-[#1a1a1a]/5">Manual</button>
+        </nav>
+
+        <div class="mb-16 grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-8" id="manifest">
+            <div class="md:col-span-1">
+                <h2 class="text-xs font-black uppercase border-b-2 border-[#1a1a1a] pb-1">System_Brief</h2>
+            </div>
+            <div class="md:col-span-3 text-sm leading-relaxed text-[#1a1a1a]/80">
+                Vaultage is a recursive file system built on a <strong class="text-[#1a1a1a]">PostgreSQL core with Prisma ORM</strong>. It utilizes a self-referential <code class="mono font-bold">FolderTree</code> model and Row-Level Security (RLS) to ensure cryptographic-grade user isolation.
+            </div>
+        </div>
+
+        <div id="terminal-tab" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+                <div class="lg:col-span-8">
+                    <div id="terminal" class="bg-white border-2 border-[#1a1a1a] h-[300px] sm:h-[400px] overflow-y-auto custom-scrollbar p-4 sm:p-6 shadow-inner">
+                        <pre id="output" class="mono text-[10px] sm:text-sm text-[#1a1a1a]/60 font-medium">// Ready for command input...</pre>
+                    </div>
+                </div>
+                <div class="lg:col-span-4 flex flex-col gap-2">
+                    <button onclick="login()" class="w-full bg-[#1a1a1a] text-white p-3 text-[10px] font-black uppercase border-2 border-[#1a1a1a] hover:bg-[#b22222]">01 Init_Auth</button>
+                    <button onclick="runTest('/folders/content', 'GET_ROOT')" class="w-full bg-white text-[#1a1a1a] p-3 text-[10px] font-black uppercase border-2 border-[#1a1a1a]">02 Read_Root</button>
+                    <button onclick="runTest('/folders/content?folderId=cmlw75s560001mfjnk36olrvw', 'GET_CHILD')" class="w-full bg-white text-[#1a1a1a] p-3 text-[10px] font-black uppercase border-2 border-[#1a1a1a]">03 Drill_Node</button>
+                    <button onclick="runTest('/files/cmlw7trh50005qzl39g410bat/download-url', 'GET_FILE')" class="w-full bg-white text-[#1a1a1a] p-3 text-[10px] font-black uppercase border-2 border-[#1a1a1a]">04 Pull_Link</button>
+                    <button onclick="logout()" class="w-full bg-transparent text-[#b22222] p-3 text-[10px] font-black uppercase border-2 border-[#b22222] mt-4 lg:mt-auto">05 Terminate</button>
+                </div>
+            </div>
+            <div id="explorer-view" class="mt-10 p-4 border-2 border-[#1a1a1a] bg-white shadow-xl min-h-[160px]">...</div>
         </div>
 
         <div id="docs-tab" class="tab-content hidden">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 border-t-4 border-[#1a1a1a] pt-12">
                 
-                <div class="md:col-span-6 space-y-8">
-                <section>
-                <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-6">
-                    <h3 class="text-xl font-black uppercase tracking-tight mb-2 border-black/10">POST /auth/[register|login]</h3>
-                    <span class="text-[9px] font-800 px-2 mb-2 py-0.5 border border-black uppercase">Public_Route</span>
-                </div>
-                <p class="text-xs/7 font-light tracking-tight mb-6">
-                    Entry point for the system. **Register** creates a new user record with a Bcrypt-hashed password. **Login** validates credentials and initializes a stateless session via a signed JWT.
-                </p>
-
-                
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-white border border-black p-4 mono text-xs shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                        <span class="text-black/40 block mb-2 uppercase font-black text-xs">// Register_Schema</span>
-                        {<br>
-                        &nbsp;&nbsp;"email": "dev@example.com",<br>
-                        &nbsp;&nbsp;"password": "••••••••",<br>
-                        }
-                    </div>
-                    <div class="bg-white border border-black p-4 mono text-xs shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                        <span class="text-black/40 block mb-2 uppercase font-black text-xs">// Login_Schema</span>
-                        {<br>
-                        &nbsp;&nbsp;"email": "dev@example.com",<br>
-                        &nbsp;&nbsp;"password": "••••••••"<br>
-                        }
-                    </div>
-                </div>
-
-                <div class="mt-6 p-4 bg-black/5 border-l-4 border-black tracking-tight text-xs/7">
-                    <strong>Protocol:</strong> Upon successful validation, the server sends a <code class="mono font-bold text-xs">Set-Cookie</code> header. The client is not required to store tokens in local storage, simplifying the frontend state and hardening the security surface.
-                </div>
-            </section>
+                <div class="space-y-12">
                     <section>
-                        <h2 class="text-xl font-black uppercase mb-2 tracking-tight">Data_Fidelity</h2>
-                        <p class="text-xs/7 mb-4">
-                            To ensure system integrity, Vaultage separates <strong>Identity</strong> from <strong>Storage</strong>. We never use filenames as primary keys.
+                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-4 flex items-baseline gap-2">
+                            <span class="text-xs sm:text-sm font-normal mono opacity-30">01.</span> Auth_Gateway
+                        </h3>
+                        <p class="text-xs/6 mb-4 opacity-80">**POST /auth/[register|login]** initializes identity. Login transmits a stateless JWT via <code>Set-Cookie</code>.</p>
+                        <div class="bg-white border border-[#1a1a1a] p-3 mono text-[9px] mb-4">
+                            <span class="opacity-30 block mb-1 uppercase font-black">// Login_Schema</span>
+                            { "email": "dev@example.com", "password": "••••••••" }
+                        </div>
+                        <div class="p-4 bg-[#b22222]/5 border-l-4 border-[#b22222] text-[10px] sm:text-[11px] leading-relaxed italic">
+                            <strong>Protocol Note:</strong> Sessions utilize **Server-Side JWTs** in HttpOnly cookies to neutralize XSS vectors.
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-4 flex items-baseline gap-2">
+                            <span class="text-xs sm:text-sm font-normal mono opacity-30">02.</span> Security_Protocol
+                        </h3>
+                        <p class="text-xs/7 opacity-80 bg-white border border-[#1a1a1a] p-4">
+                            All requests are gated by a custom middleware verifying the JWT signature. The <code>ownerId</code> is extracted server-side, preventing IDOR (Insecure Direct Object Reference) attacks.
                         </p>
-                        <div class="bg-black text-white p-4 text-xs space-y-4">
-                            <div>
-                                <span class="block font-black uppercase text-sm/6 mb-1">Storage_Key Pattern</span>
-                                <code class="mono text-green-400">/u102/b8_2f9a.bin</code>
+                    </section>
+
+                    <section>
+                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-4 flex items-baseline gap-2">
+                            <span class="text-xs sm:text-sm font-normal mono opacity-30">03.</span> Data_Fidelity
+                        </h3>
+                        <div class="bg-[#1a1a1a] text-white p-5 shadow-[6px_6px_0px_0px_rgba(178,34,34,1)]">
+                            <span class="block font-black uppercase text-[10px] opacity-40 mb-1 tracking-[0.2em]">Storage_Key pattern</span>
+                            <code class="mono text-[#b22222] font-bold text-xs bg-white px-1">/u102/b8_2f9a.bin</code>
+                            <p class="mt-4 text-[11px] leading-relaxed opacity-70">Immutable UUID pointers to S3. Renaming metadata does not orphan physical blobs.</p>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="space-y-12">
+                    <section>
+                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-4 flex items-baseline gap-2">
+                            <span class="text-xs sm:text-sm font-normal mono opacity-30">04.</span> I/O_Endpoints
+                        </h3>
+                        <div class="space-y-6">
+                            <div class="border-b border-[#1a1a1a]/20 pb-4">
+                                <span class="text-[10px] font-black uppercase text-[#b22222]">GET /folders/content</span>
+                                <p class="text-xs opacity-70 italic">Recursive tree resolver. ?folderId for children.</p>
                             </div>
-                            <p class="leading-relaxed">
-                                The <code class="mono text-white bg-white/20 px-1 italic font-bold">storageKey</code> is an immutable UUID pointer to S3. Renaming a file in the DB updates the metadata alias without risking orphaned blobs or naming collisions.
-                            </p>
-                        </div>
-                    </section>
-                    
-                    <section>
-                        <h2 class="text-xl font-black uppercase tracking-tight mb-4 border-black/10 pb-2">Security_Protocol</h2>
-                        <p class="text-xs/7 leading-relaxed bg-white border border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                            Sessions are verified via <strong>Server-Side JWTs</strong>. Tokens are stored in HttpOnly cookies, rendering them invisible to client-side <code>document.cookie</code> calls and neutralizing XSS.
-                        </p>
-                    </section>
-                </div>
-
-                <div class="md:col-span-6 space-y-12">
-                    <section>
-                        <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-6">
-                            <h3 class="text-xl font-black uppercase tracking-tight border-black/10 pb-2">GET /folders/content</h3>
-                            <span class="text-[9px] font-800 px-2 py-0.5 border mb-2 border-black uppercase">Auth Required</span>
-                        </div>
-                        <p class="text-xs/7 mb-4">Returns recursive file/folder tree. Pass <code class="mono font-bold italic">?folderId</code> for sub-directories.</p>
-                    </section>
-
-                    <section>
-                        <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-6">
-                            <h3 class="text-xl font-black uppercase tracking-tight mb-2 border-black/10">POST /folders</h3>
-                            <span class="text-[9px] font-800 px-2 py-0.5 border border-black uppercase bg-black text-white mb-2">Write_Method</span>
-                        </div>
-                        <p class="text-xs/7 mb-6">Required for defining new directory containers or nested children.</p>
-                        <div class="bg-white border border-black p-4 mono text-xs shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                            <span class="text-black/30 block mb-2">// Request Body</span>
-                            {<br>
-                            &nbsp;&nbsp;"name": "Client_Assets_2026",<br>
-                            &nbsp;&nbsp;"parentId": "uuid_string" <span class="text-black/30">// Optional for nesting</span><br>
-                            }
+                            <div class="border-b border-[#1a1a1a]/20 pb-4">
+                                <span class="text-[10px] font-black uppercase text-[#b22222]">POST /folders</span>
+                                <div class="bg-white border border-[#1a1a1a] p-3 mono text-[9px] mt-1">
+                                    { "name": "Assets_2026", "parentId": "uuid" }
+                                </div>
+                            </div>
+                            <div class="pb-4">
+                                <span class="text-[10px] font-black uppercase text-[#b22222]">POST /files</span>
+                                <div class="bg-white border border-[#1a1a1a] p-3 mono text-[9px] mt-2">
+                                    <span class="opacity-30 block mb-1 uppercase font-black">// Upload_Protocol_Schema</span>
+                                    { "fileName": "sys.dwg", "fileSize": 5242880, "folderId": "uuid_789" }
+                                </div>
+                            </div>
                         </div>
                     </section>
 
                     <section>
-                        <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-6">
-                            <h3 class="text-xl font-black uppercase tracking-tight mb-2 border-black/10">POST /files</h3>
-                            <span class="text-[9px] font-800 px-2 py-0.5 border border-black uppercase bg-black text-white mb-2">Write_Method</span>
-                        </div>
-                        <p class="text-xs/7 mb-6">Stateless pattern: Generates a signed S3 upload link (TTL: 60s) for direct-to-bucket transmission.</p>
-                        <div class="bg-white border border-black p-4 mono text-xs/4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                            <span class="text-black block mb-2">// Upload Protocol Schema</span>
-                            {<br>
-                            &nbsp;&nbsp;"fileName": "system_schematic.dwg",<br>
-                            &nbsp;&nbsp;"fileSize": 5242880,<br>
-                            &nbsp;&nbsp;"mimeType": "application/acad",<br>
-                            &nbsp;&nbsp;"folderId": "uuid_789"<br>
-                            }
+                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-4 flex items-baseline gap-2">
+                            <span class="text-xs sm:text-sm font-normal mono opacity-30">05.</span> UI_Mapping
+                        </h3>
+                        <p class="text-xs/6 opacity-80 mb-4">Uses **Event Delegation**. Maps UUIDs to <code>data-uuid</code> attributes.</p>
+                        <div class="bg-white border-2 border-double border-[#1a1a1a] p-4 mono text-[10px]">
+                            &lt;button class="file-item" <strong>data-uuid="cmlw7trh50005qzl39g410bat"</strong>&gt;<br>
+                            &nbsp;&nbsp;📄 system_schematic.pdf<br>
+                            &lt;/button&gt;
                         </div>
                     </section>
-                    <section>
-                    <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-6">
-                        <h3 class="text-xl font-black tracking-tight uppercase">UI_Mapping</h3>
-                        <span class="text-[9px] font-800 px-2 py-0.5 border border-black uppercase bg-black text-white">Frontend_Strategy</span>
-                    </div>
-                    <p class="text-xs/7 mb-6">
-                        The UI utilizes **Event Delegation**. By mapping database UUIDs to <code class="mono font-bold text-black text-[10px]">data-uuid</code> attributes, a single controller can resolve infinite resource paths without unique logic for every element.
-                    </p>
-
-                    <div class="bg-white border-2 border-black p-4 mono text-xs shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-                        <span class="text-black/30 block mb-2">// Rendered HTML Example</span>
-                        &lt;button <br>
-                        &nbsp;&nbsp;class="file-item"<br>
-                        &nbsp;&nbsp;<strong>data-uuid="cmlw7trh50005qzl39g410bat"</strong><br>
-                        &nbsp;&nbsp;onclick="runTest('/files', 'GET_LINK', this.dataset.uuid)"&gt;<br>
-                        &nbsp;&nbsp;📄 system_schematic.pdf<br>
-                        &lt;/button&gt;
-                    </div>
-                </section>
                 </div>
             </div>
         </div>
 
-        <footer class="mt-20 flex justify-between items-center text-xs font-semibold uppercase tracking-tighter">
-            <p>Vaultage Storage System // Build_2026</p>
-            <button onclick="location.reload()" id="reset-button" class="border-black px-2 py-1 text-white font-light text-xs hover:bg-black/40 hover:text-white bg-red-500 hover:text-white ">Reset_Terminal</button>
+        <footer class="mt-12 border-t-4 border-[#1a1a1a] pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-[9px] font-black uppercase tracking-[0.4em]">
+            <p>VAULTAGE STORAGE PROTOCOL // 2026</p>
+            <button onclick="location.reload()" id="reset-button" class="underline hover:text-[#b22222]">Reset_System</button>
         </footer>
     </div>
 
     <script>
       function switchTab(tabId) {
-    // 1. Toggle visibility of the content areas
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
-    document.getElementById(tabId).classList.remove('hidden');
-    
-    // 2. Define our state
-    const isDocs = tabId === 'docs-tab';
-    const resetBtn = document.getElementById('reset-button');
-    const tBtn = document.getElementById('btn-terminal');
-    const dBtn = document.getElementById('btn-docs');
-
-    // 3. Handle the Reset Button visibility
-    // If isDocs is true, 'hidden' is added. If false, it's removed.
-    resetBtn.classList.toggle('hidden', isDocs);
-
-    // 4. Handle Tab Button Styling
-    tBtn.style.borderBottomColor = isDocs ? 'transparent' : 'black';
-    tBtn.style.opacity = isDocs ? '0.4' : '1';
-    dBtn.style.borderBottomColor = isDocs ? 'black' : 'transparent';
-    dBtn.style.opacity = isDocs ? '1' : '0.4';
-}
-
+          const isDocs = tabId === 'docs-tab';
+          document.querySelectorAll('.tab-content').forEach(t => t.classList.toggle('hidden', t.id !== tabId));
+          const tBtn = document.getElementById('btn-terminal');
+          const dBtn = document.getElementById('btn-docs');
+          if (isDocs) {
+              dBtn.classList.replace('bg-transparent', 'bg-[#1a1a1a]'); dBtn.classList.replace('text-[#1a1a1a]', 'text-white');
+              tBtn.classList.replace('bg-[#1a1a1a]', 'bg-transparent'); tBtn.classList.replace('text-white', 'text-[#1a1a1a]');
+          } else {
+              tBtn.classList.replace('bg-transparent', 'bg-[#1a1a1a]'); tBtn.classList.replace('text-[#1a1a1a]', 'text-white');
+              dBtn.classList.replace('bg-[#1a1a1a]', 'bg-transparent'); dBtn.classList.replace('text-white', 'text-[#1a1a1a]');
+          }
+          document.getElementById('reset-button').classList.toggle('invisible', isDocs);
+      }
       ${indexScripts}
     </script>
 </body>
