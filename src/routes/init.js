@@ -1,5 +1,5 @@
 import express from "express";
-import { statusTemplate } from "../utils/statusTemplate.js";
+import { statusTemplate } from "../ui/statusTemplate.js";
 
 const router = express.Router();
 
