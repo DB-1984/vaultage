@@ -23,9 +23,10 @@ export const statusTemplate = /*html*/ `
       
       .inverted-v {
         display: inline-flex;
-        transform: rotate(180deg) translateY(0.01em);
+        transform: rotate(180deg) translateY(0.005em);
         margin-left: -0.055em;
         margin-right: -0.05em;
+        font-size: 99%;
       }
     </style>
 </head>
