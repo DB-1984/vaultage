@@ -29,7 +29,7 @@ const renderVisualizer = (data) => {
       
       return '<div class="flex flex-col items-center justify-center p-4 border border-black/10 hover:border-black cursor-pointer group transition-all bg-white shadow-sm" onclick="runTest(\\'' + route + '\\', \\'' + label + '\\', \\'' + item.id + '\\')">' +
              '<span class="text-3xl mb-2 group-hover:scale-110 transition-transform">' + icon + '</span>' +
-             '<span class="text-[10px] font-black uppercase tracking-tight truncate w-full text-center">' + item.name + '</span>' +
+             '<span class="text-[10px] font-black uppercase tracking-tight text-black/60 truncate w-full text-center">' + item.name + '</span>' +
              '</div>';
     }).join('');
   } 
@@ -39,7 +39,7 @@ const renderVisualizer = (data) => {
     explorer.classList.remove('hidden');
     explorer.innerHTML = '<div class="col-span-full flex flex-col items-center justify-center p-8 border-2 border-black relative">' +
                          '<div class="flex gap-4">' +
-                           '<a href="' + downloadUrl + '" target="_blank" class="bg-black text-white px-6 py-2 tracking-tighter text-sm font-bold hover:underline">' +
+                           '<a href="' + downloadUrl + '" target="_blank" class="bg-black text-black/60 px-6 py-2 tracking-tighter text-sm font-bold hover:underline">' +
                            '📄' + ' DOWNLOAD_FILE</a>'
                          '</div>' +
                          '</div>';
@@ -97,7 +97,7 @@ async function login() {
       output.innerText += "AUTH_SUCCESS.\\n";
       // SHOW THE LOGIN INFO IN THE EXPLORER
       explorer.classList.remove('hidden');
-      explorer.innerHTML = '<div class="bg-white border-black p-4 mono text-xs">' +
+      explorer.innerHTML = '<div class="bg-white border-black p-4 mono text-black/60 text-xs">' +
                            '<span class="text-black block mb-2 uppercase font-normal text-xs">// Auth_Identity_Used</span>' +
                            ' {<br>' +
                            '&nbsp;&nbsp;"email": "test@example.com",<br>' +
