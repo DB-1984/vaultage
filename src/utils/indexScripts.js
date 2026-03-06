@@ -37,9 +37,9 @@ const renderVisualizer = (data) => {
   // 4. CASE: We have a single file link
   else if (downloadUrl) {
     explorer.classList.remove('hidden');
-    explorer.innerHTML = '<div class="col-span-full flex flex-col items-center justify-center p-8 border-2 border-black relative">' +
+    explorer.innerHTML = '<div class="col-span-full flex flex-col items-center justify-center p-12 relative">' +
                          '<div class="flex gap-4">' +
-                           '<a href="' + downloadUrl + '" target="_blank" class="bg-transparent text-black/60 px-6 py-2 tracking-tighter text-sm font-bold hover:underline">' +
+                           '<a href="' + downloadUrl + '" target="_blank" class="bg-white text-[#ef5c8d] p-8 tracking-tighter text-sm font-bold hover:underline">' +
                            '📄' + ' DOWNLOAD_FILE</a>'
                          '</div>' +
                          '</div>';

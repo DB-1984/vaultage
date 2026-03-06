@@ -12,7 +12,7 @@ export const statusTemplate = /*html*/ `
     <style>
       body { 
         font-family: 'Inter', sans-serif; 
-        background: linear-gradient(135deg, #5bbad3 0%, #45587d 50%, #a2c7b5 100%);
+        background: linear-gradient(135deg, #2d0a4e 0%, #e6195e 50%, #2d0a4e 100%);
         color: #ffffff;
         min-height: 100vh;
       }
@@ -35,7 +35,7 @@ export const statusTemplate = /*html*/ `
         
         <header class="flex flex-col md:flex-row justify-between items-start gap-4">
             <div>
-                <h1 class="text-6xl lg:text-8xl logo-font tracking-tighter uppercase select-none mb-1">Vaultage</h1>
+                <h1 class="text-6xl lg:text-8xl logo-font tracking-tighter [-webkit-text-stroke-width:_medium] uppercase text-stroke-medium select-none mb-1">Vaultage</h1>
                 <p class="mono text-[11px] uppercase tracking-widest font-light-weight">Recursive_File_Storage // v1.0.0</p>
             </div>
             <div class="mono text-[10px] text-right font-light-weight">
@@ -50,9 +50,9 @@ export const statusTemplate = /*html*/ `
             <p class="text-3xl font-light-weight leading-tight">Vaultage is a recursive file system built on a PostgreSQL core. It ensures <span class="font-bold">cryptographic-grade</span> user isolation.</p>
         </div>
 
-        <nav class="flex gap-2">
-            <button onclick="switchTab('terminal-tab')" id="btn-terminal" class="bg-[#ffffff] text-[#2d0a4e] px-10 py-3 rounded-full text-xs font-bold uppercase tracking-widest">01_Console</button>
-            <button onclick="switchTab('docs-tab')" id="btn-docs" class="bg-transparent text-[#ffffff] px-10 py-3 rounded-full text-xs font-bold uppercase tracking-widest font-light-weight hover:bg-white/5 transition-all">02_Manual</button>
+        <nav class="flex">
+            <button onclick="switchTab('terminal-tab')" id="btn-terminal" class="bg-[#ffffff] text-[#2d0a4e] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest">01_Console</button>
+            <button onclick="switchTab('docs-tab')" id="btn-docs" class="bg-transparent text-[#ffffff] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest font-light-weight hover:bg-white/5 transition-all">02_Manual</button>
         </nav>
 
         <main>
@@ -66,19 +66,19 @@ export const statusTemplate = /*html*/ `
                     </div>
                     <div class="lg:col-span-4 flex flex-col gap-3">
                         <button onclick="login()" class="p-4 text-left rounded-xl glass-panel group">
-                            <span class="mono text-[9px] text-[#e6195e] font-bold block mb-1">01_INIT_AUTH</span>
+                            <span class="mono text-[9px] text-[#ef5c8d] font-bold block mb-1">01_INIT_AUTH</span>
                             <span class="text-xs font-bold uppercase text-white group-hover:underline">Login_Test</span>
                         </button>
                         <button onclick="runTest('/folders/content', 'GET_ROOT')" class="p-4 text-left rounded-xl glass-panel group">
-                            <span class="mono text-[9px] text-[#e6195e] font-bold block mb-1">02_READ_ROOT</span>
+                            <span class="mono text-[9px] text-[#ef5c8d] font-bold block mb-1">02_READ_ROOT</span>
                             <span class="text-xs font-bold uppercase text-white group-hover:underline">Resolve_Tree</span>
                         </button>
                         <button onclick="runTest('/folders/content?folderId=cmlw75s560001mfjnk36olrvw', 'GET_CHILD')" class="p-4 text-left rounded-xl glass-panel group">
-                            <span class="mono text-[9px] text-[#e6195e] font-bold block mb-1">03_DRILL_NODE</span>
+                            <span class="mono text-[9px] text-[#ef5c8d] font-bold block mb-1">03_DRILL_NODE</span>
                             <span class="text-xs font-bold uppercase text-white group-hover:underline">Navigate_Folder</span>
                         </button>
                         <button onclick="runTest('/files', 'GET_FILE_LINK', 'cmlw7trh50005qzl39g410bat')" class="p-4 text-left rounded-xl glass-panel group border border-[#e6195e]/30">
-                            <span class="mono text-[9px] text-[#e6195e] font-bold block mb-1">04_PULL_LINK</span>
+                            <span class="mono text-[9px] text-[#ef5c8d] font-bold block mb-1">04_PULL_LINK</span>
                             <span class="text-xs font-bold uppercase text-white group-hover:underline">Generate_S3_Url</span>
                         </button>
                         <button onclick="logout()" class="mt-auto p-4 text-center rounded-xl border border-red-500 text-red-500 font-black uppercase text-xs hover:bg-red-500/10 transition-all">Terminate_Session</button>
@@ -143,11 +143,11 @@ export const statusTemplate = /*html*/ `
           const tBtn = document.getElementById('btn-terminal');
           const dBtn = document.getElementById('btn-docs');
           if (isDocs) {
-              dBtn.className = "bg-[#ffffff] text-[#2d0a4e] px-10 py-3 rounded-full text-xs font-bold uppercase tracking-widest";
-              tBtn.className = "bg-transparent text-[#ffffff] px-10 py-3 rounded-full text-xs font-bold uppercase tracking-widest font-light-weight hover:bg-white/5 transition-all";
+              dBtn.className = "bg-[#ffffff] text-[#2d0a4e] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest";
+              tBtn.className = "bg-transparent text-[#ffffff] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest font-light-weight hover:bg-white/5 transition-all";
           } else {
-              tBtn.className = "bg-[#ffffff] text-[#2d0a4e] px-10 py-3 rounded-full text-xs font-bold uppercase tracking-widest";
-              dBtn.className = "bg-transparent text-[#ffffff] px-10 py-3 rounded-full text-xs font-bold uppercase tracking-widest font-light-weight hover:bg-white/5 transition-all";
+              tBtn.className = "bg-[#ffffff] text-[#2d0a4e] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest";
+              dBtn.className = "bg-transparent text-[#ffffff] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest font-light-weight hover:bg-white/5 transition-all";
           }
       }
       ${indexScripts}
